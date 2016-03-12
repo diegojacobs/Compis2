@@ -187,7 +187,6 @@ public class GenerateTable<T> extends DECAFBaseVisitor<Object> {
      ************************************/
     @Override
     public T visitMethodDeclaration(DECAFParser.MethodDeclarationContext ctx) {
-    	System.out.println(ctx.getText());
         Ambito nuevoScope = new Ambito();
         scopeActual.addKid(nuevoScope);
         nuevoScope.setPrev(scopeActual);
@@ -198,7 +197,9 @@ public class GenerateTable<T> extends DECAFBaseVisitor<Object> {
         Type returnType = new Type(ret);
         returnType.setSimple(true);
         
-        String id = ctx.getChild(1).getText();        
+        String id = ctx.getChild(1).getText();
+        
+        boolean agregado = false;
         for (int i = 3; i < ctx.getChildCount(); i++) 
         {
         	Object var = this.visit(ctx.getChild(i));
@@ -212,13 +213,21 @@ public class GenerateTable<T> extends DECAFBaseVisitor<Object> {
         			parametros.add(simbolo);
         		}
         	}
+        	
+        	
+        	if (!agregado && ctx.getChild(i).getText().equals(")"))
+    		{
+        		Metodos metodo = new Metodos(id, returnType, parametros);
+                tablaMetodos.addMethod(metodo);
+                
+                tablaSimbolos.addAllSymbol(parametros);
+                
+                agregado = true;
+    		}
         }
    
         
-        Metodos metodo = new Metodos(id, returnType, parametros);
-        tablaMetodos.addMethod(metodo);
         
-        tablaSimbolos.addAllSymbol(parametros);
         
         scopeActual = scopeActual.getPrev();
         return (T)new String();
@@ -371,7 +380,7 @@ public class GenerateTable<T> extends DECAFBaseVisitor<Object> {
     	}
     }
     
-    /*
+    
 	@Override 
 	public T visitStatementRETURN(@NotNull DECAFParser.StatementRETURNContext ctx) { 
 		
@@ -401,7 +410,7 @@ public class GenerateTable<T> extends DECAFBaseVisitor<Object> {
 				return (T)"Error";
 			}
 		}
-	}*/
+	}
 
 	
 	/****************************************
