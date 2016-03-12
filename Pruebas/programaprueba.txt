@@ -1,0 +1,23 @@
+class Program {
+    int a;
+    char b;
+    boolean c;
+    int d [5];
+    int NumMayor(int a, int b){
+        int g[6];
+        b = 'b';
+        a = 5;
+        c = true;
+        if (a > b){
+            return a;
+        } else {
+            return b;
+        }
+    }
+    struct carro{
+        int e;
+        struct moto{
+           int f;
+        } mimoto;
+    }
+}

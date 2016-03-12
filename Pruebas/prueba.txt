@@ -1,0 +1,17 @@
+class program{
+	
+	void suma()
+	{
+		int a;
+		int b;
+		int c;
+		int d;
+		
+		b=2;
+		c=3;
+		d=4;
+		
+		a=b+c*d;
+
+	}
+}
