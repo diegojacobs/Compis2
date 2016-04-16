@@ -155,7 +155,7 @@ public class TablaSimbolos {
     *****************************************/
     public String[][] getInfo()
     {
-        String[][] a = new String[this.Table.size()][8];
+        String[][] a = new String[this.Table.size()][9];
         for(int i=0;i<a.length;i++)
         {
             String[] b = this.Table.get(i).getInfo();
@@ -168,6 +168,7 @@ public class TablaSimbolos {
             a[i][5] = b[5];
             a[i][6] = b[6];
             a[i][7] = b[7];
+            a[i][8] = b[8];
         }
         return a;
     }
@@ -177,7 +178,7 @@ public class TablaSimbolos {
     *****************************************/
     public String[][] getDefaultInfo()
     {
-        String[][] a = new String[1][8];
+        String[][] a = new String[1][9];
         a[0][0] = "";
         a[0][1] = "";
         a[0][2] = "";
@@ -186,6 +187,7 @@ public class TablaSimbolos {
         a[0][5] = "";
         a[0][6] = "";
         a[0][7] = "";
+        a[0][8] = "";
         
         return a;
     }
@@ -195,7 +197,7 @@ public class TablaSimbolos {
     *****************************************/
     public String[] getColumsTitles()
     {
-        String columNames[] = {"id", "Ambito", "Type","Simple","Struct","Param","Array","Items"};
+        String columNames[] = {"id", "Ambito", "Type", "Length", "Simple","Struct","Param","Array","Items"};
         return columNames;
     }  
 

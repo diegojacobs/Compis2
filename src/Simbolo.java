@@ -5,8 +5,8 @@ Feb 15, 2016
 public class Simbolo {
 
     private String id;
-    private Ambito  ambit;
-    private Type   type;
+    private Ambito ambit;
+    private Type type;
 
     public Simbolo()
     {
@@ -55,16 +55,17 @@ public class Simbolo {
      *****************************************/
     public String[] getInfo() 
     {
-        String[] a = new String[8];
+        String[] a = new String[9];
         
         a[0] = this.id;
         a[1] = this.ambit.getName() + "";
         a[2] = this.getType().getType_name();
-        a[3] = this.getType().isSimple() + "";
-        a[4] = this.getType().isStruct() + "";
-        a[5] = this.getType().isParam() + "";
-        a[6] = this.getType().isArray() + "";
-        a[7] = this.getType().getItems().toString();
+        a[3] = this.getType().getType_len() + "";
+        a[4] = this.getType().isSimple() + "";
+        a[5] = this.getType().isStruct() + "";
+        a[6] = this.getType().isParam() + "";
+        a[7] = this.getType().isArray() + "";
+        a[8] = this.getType().getItems().toString();
         
         return a;
     }

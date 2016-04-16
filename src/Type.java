@@ -12,7 +12,7 @@ public class Type {
     private ArrayList<Simbolo> items = new ArrayList<Simbolo>();
     private String type_name;
     private String var_name;
-    
+    private int type_len;
 
     public Type(String type_name)
     {
@@ -23,6 +23,24 @@ public class Type {
         this.array = false;
         this.param = false;
         this.length_array = 0;
+        
+        if (type_name != null)
+        {	
+	        if (type_name.equals("int"))
+	        {
+	        	this.type_len = 4;
+	        }
+	        
+	        if (type_name.equals("char"))
+	        {
+	        	this.type_len = 2;
+	        }
+	        
+	        if (type_name.equals("boolean"))
+	        {
+	        	this.type_len = 1;
+	        }
+        }
     }
     
     public Type(String nombre, String tipo) {
@@ -32,6 +50,24 @@ public class Type {
         this.array =false;
         this.struct = false;
         this.length_array = 0;
+        
+        if (type_name != null)
+        {	
+	        if (type_name.equals("int"))
+	        {
+	        	this.type_len = 4;
+	        }
+	        
+	        if (type_name.equals("char"))
+	        {
+	        	this.type_len = 2;
+	        }
+	        
+	        if (type_name.equals("boolean"))
+	        {
+	        	this.type_len = 1;
+	        }
+        }
     }
 
    
@@ -72,11 +108,21 @@ public class Type {
     {
         this.array = array;
         this.length_array = array_len;
+        
+        if (array)
+        {
+        	this.type_len = this.type_len * this.length_array;
+        }
     }
     
     public void setArray(boolean array) 
     {
         this.array = array;
+        
+        if (array)
+        {
+        	this.type_len = this.type_len * this.length_array;
+        }
     }
 
     public ArrayList<Simbolo> getItems() 
@@ -135,4 +181,20 @@ public class Type {
     {
         this.param = param;
     }
+
+	public int getLength_array() {
+		return length_array;
+	}
+
+	public void setLength_array(int length_array) {
+		this.length_array = length_array;
+	}
+
+	public int getType_len() {
+		return type_len;
+	}
+
+	public void setType_len(int type_len) {
+		this.type_len = type_len;
+	}
 }

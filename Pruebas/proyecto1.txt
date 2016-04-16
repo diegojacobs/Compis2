@@ -1,4 +1,4 @@
-class proyecto1 {
+class Program {
 	// declarar variable dos veces en el mismo ambito
 	//int global1;
 	int global1;
