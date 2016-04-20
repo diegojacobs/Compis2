@@ -1,5 +1,5 @@
 class program{
-	
+	int g;
 	void suma()
 	{
 		int a;
@@ -12,6 +12,12 @@ class program{
 		d=4;
 		
 		a=b+c*d;
-
+		if(a==b){}
+	}
+	
+	void mult(int a, int b){}
+	void main()
+	{
+		mult(4,5);
 	}
 }

@@ -68,12 +68,14 @@ statement : IF '(' expression ')' block ( statementELSE )?  #statementIF
         
 statementELSE: ELSE block;
 
-location: simpleLocation| structLocation ;
+location: simpleLocation
+		| structLocation ;
 
 structLocation: simpleVariable ('.' location)
 			| arrayVariable ('.' location) ;
 	
-simpleLocation: simpleVariable | arrayVariable ;
+simpleLocation: simpleVariable 
+			| arrayVariable ;
 
 simpleVariable: ID;			
 
@@ -105,9 +107,9 @@ resExpr: unaryExpr
 unaryExpr:  '-' value | '!' value | value   ;
 
 value: location 
-		| methodCall 
-		| literal 
-		| exp1;
+	  | methodCall 
+	  | literal 
+	  | exp1;
 
 exp1: '(' expression ')';
 	

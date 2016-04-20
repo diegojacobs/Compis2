@@ -52,6 +52,7 @@ import java.nio.file.Paths;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
 import javax.swing.JTable;
 import javax.swing.JSeparator;
 
@@ -80,6 +81,8 @@ public class myIDE {
 	public static JTable symbolTable;
 	public static JTable methodTable;
 	public static JTable structTable;
+	private JTextArea textAreaInter;
+	private JScrollPane scrollPaneInterCode;
 	private JTable table;
 	
 	/***********************************************
@@ -152,6 +155,12 @@ public class myIDE {
 		tree = new JTree();
 		scrollPaneTree = new JScrollPane(tree);
 		
+		//Creamos nuestro scroll para el codigo intermedio
+		textAreaInter = new JTextArea();
+		textAreaInter.setBounds(1, 11, 748, 381);
+		scrollPaneInterCode = new JScrollPane(textAreaInter);
+		
+		
 		//Nuestro boton para compilar un archivo
 		JButton btnCompilar = new JButton("Compilar");
 		btnCompilar.setToolTipText("Run Program");
@@ -197,11 +206,29 @@ public class myIDE {
 		        textAreaError.setForeground(Color.RED);
 		        textAreaError.setText(DescriptiveErrorListener.errores);
 		        
-				//recoremos el arbol sintactico
+				//Visitamos y revisamos las reglas semanticas
 				GenerateTable visitor = new GenerateTable(parstree);
 				
 				//Desplegamos la tabla de simbolos
-				System.out.println(textAreaError.getText());
+				tabbedPane.remove(symbolTable);
+				symbolTable = new JTable(visitor.tablaSimbolos.getInfo(),visitor.tablaSimbolos.getColumsTitles());
+				tabbedPane.addTab("Tabla Simbolos",null,symbolTable,null);
+				
+				//Desplegamos la tabla de metodos
+				tabbedPane.remove(methodTable);
+				methodTable = new JTable(visitor.tablaMetodos.getInfo(), visitor.tablaMetodos.getColumsTitles());
+		        tabbedPane.addTab("Tabla Metodos",null,myIDE.methodTable,null);
+				
+				//Desplegamos la tabla de Structs
+		        tabbedPane.remove(structTable);
+		        structTable = new JTable(visitor.tablaStruct.getInfo(), visitor.tablaStruct.getColumsTitles());
+		        tabbedPane.addTab("Tabla Struct",null,structTable,null);
+		        
+		        //Visitamos y generamos nuestro codigo intermedio
+		        InterVisitor visitInter = new InterVisitor(parstree,visitor.tablaSimbolos,visitor.tablaMetodos,visitor.tablaStruct);
+		        
+		        textAreaInter.setText(visitInter.getCodigo().toString());
+		        tabbedPane.addTab("Codigo Intermedio",null,scrollPaneInterCode,null);
 			}
 		});
 		panel.add(btnCompilar);

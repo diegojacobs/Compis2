@@ -16,31 +16,6 @@ public class GenerateTable<T> extends DECAFBaseVisitor<Object> {
     public GenerateTable(ParseTree tree) {
     	
         this.visit(tree);
-        System.out.println("***************** Tabla Simbolos *****************");
-        Object rows[][] = tablaSimbolos.getInfo();
-        Object columns[] = tablaSimbolos.getColumsTitles();
-        
-        myIDE.symbolTable = new JTable(rows,columns);
-        myIDE.tabbedPane.remove(myIDE.symbolTable);
-        myIDE.tabbedPane.addTab("Tabla Simbolos",null,myIDE.symbolTable,null);
-        
-        System.out.println("***************** Tabla Metodos *****************");
-        
-        Object rowsM[][] = tablaMetodos.getInfo();
-        Object columnsM[] = tablaMetodos.getColumsTitles();
-        
-        myIDE.methodTable = new JTable(rowsM, columnsM);
-        myIDE.tabbedPane.remove(myIDE.methodTable);
-        myIDE.tabbedPane.addTab("Tabla Metodos",null,myIDE.methodTable,null);
-        
-        System.out.println("***************** Tabla Struct *****************");
-        Object rowsS[][] = tablaStruct.getInfo();
-        Object columnsS[] = tablaStruct.getColumsTitles();
-        
-        myIDE.structTable = new JTable(rowsS, columnsS);
-        myIDE.tabbedPane.remove(myIDE.structTable);
-        myIDE.tabbedPane.addTab("Tabla Struct",null,myIDE.structTable,null);
-        
         scopeActual.cont = 0;
     }
     
@@ -310,7 +285,8 @@ public class GenerateTable<T> extends DECAFBaseVisitor<Object> {
             this.visit(ctx.getChild(i));
             if (i == 2)
             {
-            	if (ctx.getChild(2) != (T)"boolean")
+            	String flag = (String)this.visit(ctx.getChild(2));
+            	if (!flag.equals("boolean"))
             	{
             		Error("Expression en if no es boolean",ctx.getStart().getLine());
             	}
@@ -696,7 +672,7 @@ public class GenerateTable<T> extends DECAFBaseVisitor<Object> {
 	    	case 1:
 	    		return (T)(this.visit(ctx.resExpr()));
 	    	case 3:
-	    		if ((this.visit(ctx.multExpr()).equals("int")) && (this.visit(ctx.multExpr()) == this.visit(ctx.resExpr())))
+	    		if ((this.visit(ctx.multExpr()).equals("int")) && (this.visit(ctx.multExpr()).equals(this.visit(ctx.resExpr()))))
 	    		{
 	    			return (T)"int";
 	    		}
@@ -721,7 +697,7 @@ public class GenerateTable<T> extends DECAFBaseVisitor<Object> {
 	    	case 1:
 	    		return (T)(this.visit(ctx.unaryExpr()));
 	    	case 3:
-	    		if (this.visit(ctx.resExpr()) == this.visit(ctx.unaryExpr()))
+	    		if (this.visit(ctx.resExpr()).equals(this.visit(ctx.unaryExpr())))
 	    		{
 	    			return (T)"int";
 	    		}

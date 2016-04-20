@@ -73,12 +73,12 @@ class Program {
 	boolean pruebaBoolean(){
 		int a;
 		char b ;
-//		if ( a ) {
-//			return false; 
-//		}
-//		while ( b ) {
-//			return false; 
-//		}
+		if (a==2) {
+			return false; 
+		}
+		while (b=='c') {
+			return false; 
+		}
 		return true;
 	}
 	

@@ -149,7 +149,21 @@ public class TablaSimbolos {
         }
         return null;
     }
-
+    
+    public Simbolo findAllScopes(String nombreVar){
+        
+        try{ 
+           for (Simbolo sim:this.Table) 
+           {
+               if (sim.getId().trim().equals(nombreVar.trim()))
+                   return sim;
+           }
+        
+        }catch(Exception e){}
+       return null;
+   
+   }
+    
     /*****************************************
     * @return devolvemos la tabla con la informacion
     *****************************************/

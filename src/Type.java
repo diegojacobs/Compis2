@@ -33,12 +33,12 @@ public class Type {
 	        
 	        if (type_name.equals("char"))
 	        {
-	        	this.type_len = 2;
+	        	this.type_len = 4;
 	        }
 	        
 	        if (type_name.equals("boolean"))
 	        {
-	        	this.type_len = 1;
+	        	this.type_len = 4;
 	        }
         }
     }
@@ -60,12 +60,12 @@ public class Type {
 	        
 	        if (type_name.equals("char"))
 	        {
-	        	this.type_len = 2;
+	        	this.type_len = 4;
 	        }
 	        
 	        if (type_name.equals("boolean"))
 	        {
-	        	this.type_len = 1;
+	        	this.type_len = 4;
 	        }
         }
     }
