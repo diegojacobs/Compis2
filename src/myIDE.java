@@ -184,51 +184,55 @@ public class myIDE {
 		        ParseTree parstree = parser.program(); // begin parsing at rule 'prog'
 		        rules = parser.getRuleNames();
 		        
-		        //Arbol solo texto
-		        AST ast = new AST(parstree);
-		        System.out.println(ast.toString());
-		        
-		        //Creamos el arbol para mostrarlo luego
-		        myTree mtree = new myTree(parstree,parser);
-		        Font font = new Font("Verdana", Font.BOLD, 12);
-		        tree = mtree.BuildTree();
-		        tree.setFont(font);
-		        tree.setShowsRootHandles(true);
-				//tree.setFont(font);
-				DefaultTreeCellRenderer render = (DefaultTreeCellRenderer) tree.getCellRenderer();
-				render.setLeafIcon(null);
-				render.setClosedIcon(null);
-				render.setOpenIcon(null);
-		        scrollPaneTree = new JScrollPane(tree);
-		        
 		        //Mostramos los errores si existen
 		        textAreaError.setText(null);
 		        textAreaError.setForeground(Color.RED);
 		        textAreaError.setText(DescriptiveErrorListener.errores);
 		        
-				//Visitamos y revisamos las reglas semanticas
-				GenerateTable visitor = new GenerateTable(parstree);
-				
-				//Desplegamos la tabla de simbolos
-				tabbedPane.remove(symbolTable);
-				symbolTable = new JTable(visitor.tablaSimbolos.getInfo(),visitor.tablaSimbolos.getColumsTitles());
-				tabbedPane.addTab("Tabla Simbolos",null,symbolTable,null);
-				
-				//Desplegamos la tabla de metodos
-				tabbedPane.remove(methodTable);
-				methodTable = new JTable(visitor.tablaMetodos.getInfo(), visitor.tablaMetodos.getColumsTitles());
-		        tabbedPane.addTab("Tabla Metodos",null,myIDE.methodTable,null);
-				
-				//Desplegamos la tabla de Structs
-		        tabbedPane.remove(structTable);
-		        structTable = new JTable(visitor.tablaStruct.getInfo(), visitor.tablaStruct.getColumsTitles());
-		        tabbedPane.addTab("Tabla Struct",null,structTable,null);
-		        
-		        //Visitamos y generamos nuestro codigo intermedio
-		        InterVisitor visitInter = new InterVisitor(parstree,visitor.tablaSimbolos,visitor.tablaMetodos,visitor.tablaStruct);
-		        
-		        textAreaInter.setText(visitInter.getCodigo().toString());
-		        tabbedPane.addTab("Codigo Intermedio",null,scrollPaneInterCode,null);
+		        if(DescriptiveErrorListener.errores.equals(new String()))
+		        {
+					//Visitamos y revisamos las reglas semanticas
+					GenerateTable visitor = new GenerateTable(parstree);
+					
+					if (!visitor.isHasErrors())
+					{
+						//Creamos el arbol para mostrarlo luego
+				        myTree mtree = new myTree(parstree,parser);
+				        Font font = new Font("Verdana", Font.BOLD, 12);
+				        tree = mtree.BuildTree();
+				        tree.setFont(font);
+				        tree.setShowsRootHandles(true);
+						//tree.setFont(font);
+						DefaultTreeCellRenderer render = (DefaultTreeCellRenderer) tree.getCellRenderer();
+						render.setLeafIcon(null);
+						render.setClosedIcon(null);
+						render.setOpenIcon(null);
+				        scrollPaneTree = new JScrollPane(tree);
+				        
+						//Desplegamos la tabla de simbolos
+						tabbedPane.remove(symbolTable);
+						symbolTable = new JTable(visitor.tablaSimbolos.getInfo(),visitor.tablaSimbolos.getColumsTitles());
+						tabbedPane.addTab("Tabla Simbolos",null,symbolTable,null);
+						
+						//Desplegamos la tabla de metodos
+						tabbedPane.remove(methodTable);
+						methodTable = new JTable(visitor.tablaMetodos.getInfo(), visitor.tablaMetodos.getColumsTitles());
+				        tabbedPane.addTab("Tabla Metodos",null,myIDE.methodTable,null);
+						
+						//Desplegamos la tabla de Structs
+				        tabbedPane.remove(structTable);
+				        structTable = new JTable(visitor.tablaStruct.getInfo(), visitor.tablaStruct.getColumsTitles());
+				        tabbedPane.addTab("Tabla Struct",null,structTable,null);
+				        
+				        //Visitamos y generamos nuestro codigo intermedio
+				        InterVisitor visitInter = new InterVisitor(parstree,visitor.tablaSimbolos,visitor.tablaMetodos,visitor.tablaStruct);
+				        
+				        textAreaInter.setText(visitInter.getCodigo().toString());
+				        tabbedPane.addTab("Codigo Intermedio",null,scrollPaneInterCode,null);
+				        
+				        Compilation preC = new Compilation(visitInter.getCodigo());
+					}
+		        }
 			}
 		});
 		panel.add(btnCompilar);

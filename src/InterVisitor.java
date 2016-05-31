@@ -1089,7 +1089,7 @@ public class InterVisitor<T> extends DECAFBaseVisitor<Object> {
 	               return stack.getPos();
 	        }
 	    }
-	    return -1;
+	    return 0;
 	}
 	
 	public int buscarGlobalStack(String id)

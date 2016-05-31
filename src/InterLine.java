@@ -13,7 +13,12 @@ public class InterLine {
 	private InterLine gotoE; 	//Si es un salto
 	private boolean global;		//Si es global
 	private boolean IF;			//Si esta dentro de un if
-	
+	private boolean declaration;
+    private String tipo;
+    private StackPointer localStack;
+    private boolean salidaMetodo;
+    private boolean param;
+    private boolean method;
 	
 	public InterLine(String dir2, String dir3, String op) {
 		this.dir2 = dir2;
@@ -98,4 +103,52 @@ public class InterLine {
 	public void setIF(boolean iF) {
 		IF = iF;
 	}
+	
+    public boolean isDeclaration() {
+        return declaration;
+    }
+
+    public void setDeclaration(boolean declaration) {
+        this.declaration = declaration;
+    }
+
+    public String getTipo() {
+        return tipo;
+    }
+
+    public void setTipo(String tipo) {
+        this.tipo = tipo;
+    }
+
+    public StackPointer getLocalStack() {
+        return localStack;
+    }
+
+    public void setLocalStack(StackPointer localStack) {
+        this.localStack = localStack;
+    }
+
+    public boolean isSalidaMetodo() {
+        return salidaMetodo;
+    }
+
+    public void setSalidaMetodo(boolean salidaMetodo) {
+        this.salidaMetodo = salidaMetodo;
+    }
+
+    public boolean isParam() {
+        return param;
+    }
+
+    public void setParam(boolean param) {
+        this.param = param;
+    }
+
+    public boolean isMethod() {
+        return method;
+    }
+
+    public void setMethod(boolean method) {
+        this.method = method;
+    }
 }

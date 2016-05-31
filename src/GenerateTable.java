@@ -12,15 +12,55 @@ public class GenerateTable<T> extends DECAFBaseVisitor<Object> {
     public TablaMetodos tablaMetodos = new TablaMetodos();
     public TablaStruct tablaStruct = new TablaStruct();
     public Ambito scopeActual;
+    private boolean hasErrors;
     
     public GenerateTable(ParseTree tree) {
-    	
+    	hasErrors = false;
         this.visit(tree);
         scopeActual.cont = 0;
     }
     
-    
-    /******************************************
+    public TablaSimbolos getTablaSimbolos() {
+		return tablaSimbolos;
+	}
+
+
+	public void setTablaSimbolos(TablaSimbolos tablaSimbolos) {
+		this.tablaSimbolos = tablaSimbolos;
+	}
+
+
+	public TablaMetodos getTablaMetodos() {
+		return tablaMetodos;
+	}
+
+
+	public void setTablaMetodos(TablaMetodos tablaMetodos) {
+		this.tablaMetodos = tablaMetodos;
+	}
+
+
+	public TablaStruct getTablaStruct() {
+		return tablaStruct;
+	}
+
+
+	public void setTablaStruct(TablaStruct tablaStruct) {
+		this.tablaStruct = tablaStruct;
+	}
+
+
+	public boolean isHasErrors() {
+		return hasErrors;
+	}
+
+
+	public void setHasErrors(boolean hasErrors) {
+		this.hasErrors = hasErrors;
+	}
+
+
+	/******************************************
      * Program
      * CLASS ID { declaration }
      *****************************************/
@@ -836,9 +876,9 @@ public class GenerateTable<T> extends DECAFBaseVisitor<Object> {
     
     public void Error(String message, int line)
     {    
-    	myIDE.textAreaError.setText(myIDE.textAreaError.getText()+"\n"+
-                "line: " + line +  " " + message
-                );
+    	//myIDE.textAreaError.setText(myIDE.textAreaError.getText()+"\n"+
+          //      "line: " + line +  " " + message
+            //    );
         
     }
 }
